@@ -1,5 +1,7 @@
 // This is a DIM specific script that can be run in the Developer Console in Chrome on a DIM tab.
-// it writes out a csv string with stats and perks for armor, ghosts, and artifacts.
+// it writes out a csv string with stats and perks for armor, weapons, and ghosts
+// Credit to this script goes to wein3967 (https://gist.github.com/wein3967 and www.reddit.com/r/wein3967)
+// If you didn't read the README.md, please do now!
 
 // FUNCTIONS
 function isArmor(myItem) {
