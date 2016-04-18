@@ -1,17 +1,20 @@
 // This is a DIM specific script that can be run in the Developer Console in Chrome on a DIM tab.
 // it writes out a csv string with stats and perks for armor, weapons, and ghosts
 // Credit to this script goes to wein3967 (https://gist.github.com/wein3967 and www.reddit.com/u/wein3967)
-// If you didn't read the README.md, please do now!
+// If you didn't read the README.md, please do so now!
+
+// Changelog:
+// 4/18/16: Added year 1 or year 2 tracking to output to make Excel coding easier.
 
 // FUNCTIONS
-function isArmor(myItem) {
-    return myItem.sort === "Armor" && 
+function isWeapon(myItem) {
+    return myItem.sort === "Weapons" && 
 		 (myItem.tier === "Legendary" || myItem.tier === "Exotic");
 };
 
-function isWeapon(myItem) {
-    return myItem.sort === "Weapons" &&
-		   (myItem.tier === "Legendary" || myItem.tier === "Exotic");
+function isArmor(myItem) {
+    return myItem.sort === "Armor" && 
+		 (myItem.tier === "Legendary" || myItem.tier === "Exotic");
 };
 
 function isGhost(myItem) {
@@ -59,6 +62,7 @@ function getItemString(item) {
 			    item.sort + ',' + 
 			    item.type + ',' + 
 			    item.name + ',' + 
+			    item.year + ',' +
 			    item.primStat.value + ',' + 
                             statSplit(findStatName("Intellect", item.stats), findStatName("Discipline", item.stats), findStatName("Strength", item.stats)) + ',' +
                             findStatName("Intellect", item.stats) + ',' +
@@ -72,11 +76,12 @@ function getY1ClassItemString(item) {
     var descriptionString = item.id + ',' +
                             ',' +
                             item.locked + ',' +
-                            item.classTypeName + ',' + 
+                            item.classTypeName + ',' +                             
 			    item.tier + ',' + 
 			    item.sort + ',' + 
 			    item.type + ',' + 
-			    item.name + ',' + 
+			    item.name + ',' +
+			    item.year + ',' +
 			    item.primStat.value;
     return descriptionString;
 };
@@ -104,9 +109,9 @@ var vaultItems = stuff[stuff.length - 1].items;
 var allItems = guardian1_Items.concat(guardian2_Items, guardian3_Items, vaultItems);
 
 var allFilteredItems = allItems.filter(isArmor); //Filter for only Legendary/Exotic armor
-allFilteredItems = allFilteredItems.concat(allItems.filter(isWeapon), allItems.filter(isGhost));
+allFilteredItems = allFilteredItems.concat(allItems.filter(isWeapon),allItems.filter(isGhost));
 
-var descString = "IndexID,Status,IsLocked,Class,Tier,Armor,Type,Name,Light,StatSplit,Intellect,Discipline,Strength,Quality,Perks" + '\n';
+var descString = "IndexID,Status,IsLocked,Class,Tier,Armor,Type,Name,Year,Light,StatSplit,Intellect,Discipline,Strength,Quality,Perks" + '\n';
 
 for (i = 0; i < allFilteredItems.length; i++) {
     
